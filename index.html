@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>run </title>
+<meta charset="utf-8"/>
+<script type="text/javascript" src="js/jquery.3.2.1.js"></script>
+<style type="text/css">
+div.itd{
+	width: 1 200px;
+	margin:0 auto;
+	height: 1px;
+}
+img {
+	position: absolute;
+	top: 418px;
+	left: 500px;
+	width: 200px;
+}
+.bg{
+	position: relative;
+	width: 1200px;
+	height: 500px;
+	border:2px solid #999;
+	margin:0 auto;
+	background: url(images/bg.png) ;
+	overflow: hidden;
+}
+.jump{
+	animation: jump ease 3s ;
+}
+@keyframes jump{
+ 0%{
+
+ }
+ 50%{
+ 	top: 08px;
+ }
+ 100%{
+
+ }
+}
+</style>
+</head>
+<body  onkeydown="show()" rlt="1">
+<div class="itd">&nbsp;&nbsp;←：向左 &nbsp;&nbsp;<br>&nbsp;&nbsp;→：向右<br>&nbsp;&nbsp;↑：跳跃&nbsp;&nbsp;<br>&nbsp;&nbsp;Space：停止</div>
+<div class="bg">
+
+	<img src="images/血槽_03.png" style="top: 20px;left: 10px">
+
+	<img id="im" src="images/down-0.png" />
+
+	<img id="monster1" src="images/monster.png" style="width: 80px;height: 100px" />
+	<img id="monster2" src="images/monster.png" style="width: 80px;height: 100px" />
+	<img id="monster3" src="images/monster.png" style="width: 80px;height: 100px" />
+
+</div>
+<script type="text/javascript">
+		var i = 0, clc = null, flage;
+		var images = document.getElementById('im');
+		var oGoLeft = document.getElementById('goLeft');
+		var oGoRight = document.getElementById('goRight');
+		var oStop = document.getElementById('stop');
+
+		var monster1 = document.getElementById('monster1');
+		var monster2 = document.getElementById('monster2');
+		var monster3 = document.getElementById('monster3');
+
+
+		images.style.top = '360px';
+		images.style.left = '500px';
+
+		monster1.style.top = '160px';
+		monster1.style.left = '1200px';
+
+		monster2.style.top = '60px';
+		monster2.style.left = '1200px';
+
+		monster3.style.top = '260px';
+		monster3.style.left = '1200px';
+
+		//跳跃
+		function jumpp(){
+			$('#im').addClass('jump');
+			setTimeout(rmJump,2000)
+		}	
+
+		function rmJump(){
+			$('#im').removeClass('jump');
+		}
+
+		//停止
+		function stopp(){
+			switch(flage){
+				case 1: images.src = 'images/down-0.png';break;
+			}
+			clearInterval(clc);
+		}
+		//向左
+		function leftt(){
+			i = 0;
+			clearInterval(clc);
+			clc = setInterval("goLeft(i++);", 60);
+		}
+
+		function goLeft(){
+			var name;
+			if (i>60) {
+				i = 0
+			}
+			
+			if (i<=9) {
+				name = "images/反向跑_0000" + i + "." + "png";
+			}else{
+				name = "images/反向跑_000" + i + "." + "png";
+			}
+			images.src = name;
+			images.style.left = parseInt(images.style.left) - 10 + 'px';
+			if (images.style.left === '-20px') {
+				images.style.left = 1000+'px'
+			}
+
+			monster1.style.left = parseInt(monster1.style.left) - 20 + 'px';
+
+			if (parseInt(monster1.style.left) < -20) {
+				monster1.style.left = 1200+'px'
+			}
+
+
+			monster2.style.left = parseInt(monster2.style.left) - 30 + 'px';
+
+			if (parseInt(monster2.style.left) < -20) {
+				monster2.style.left = 1200+'px'
+			}
+
+
+			monster3.style.left = parseInt(monster3.style.left) - 40 + 'px';
+
+			if (parseInt(monster3.style.left) < -20) {
+				monster3.style.left = 1200+'px'
+			}
+			
+			flage = 1;
+		}
+		//向右
+		function rightt(){
+			i = 0;
+			clearInterval(clc);
+			clc = setInterval("goRight(i++);", 60);
+		}
+
+		function goRight(){
+			if (i>60) {
+				i = 0
+			}
+			var name;
+
+			if (i<=9) {
+				name = "images/跑起来_0000" + i + "." + "png";
+			}else{
+				name = "images/跑起来_000" + i + "." + "png";
+			}
+			images.src = name;
+			images.style.left = parseInt(images.style.left) + 10 + 'px';
+			if (images.style.left === '1070px') {
+				images.style.left = 0+'px'
+			}
+
+			monster1.style.left = parseInt(monster1.style.left) - 20 + 'px';
+
+			if (parseInt(monster1.style.left) < -20) {
+				monster1.style.left = 1200+'px'
+			}
+
+			
+			monster2.style.left = parseInt(monster2.style.left) - 30 + 'px';
+
+			if (parseInt(monster2.style.left) < -20) {
+				monster2.style.left = 1200+'px'
+			}
+
+
+			monster3.style.left = parseInt(monster3.style.left) - 40 + 'px';
+
+			if (parseInt(monster3.style.left) < -20) {
+				monster3.style.left = 1200+'px'
+			}
+
+			flage = 1;
+		}
+
+		function show(){
+				var sz=window.event.keyCode;
+				switch(sz){
+					case 37:
+						leftt();
+						break;
+					case 39:
+						rightt();
+						break;
+					case 32:
+					   stopp();
+						break;
+					case 38:
+					   jumpp();
+				}
+		}
+
+
+	</script>
+<div style="text-align:center;clear:both">
+</div>
+</body>
+</html>
